@@ -1,6 +1,6 @@
 # Digital 0 to 10 V Power Supply with Deadbeat Control
 
-Closed-loop variable voltage source (0 to 10 V) controlled by a discretized deadbeat controller running on an ESP32. Individual project, with firmware, MATLAB analysis package and final report.
+Closed-loop variable voltage source (0 to 10 V) controlled by a discretized deadbeat controller running on an ESP32. Individual project, with firmware and a MATLAB analysis package.
 
 ![Setup](images/setup.jpg)
 
@@ -10,14 +10,14 @@ Closed-loop variable voltage source (0 to 10 V) controlled by a discretized dead
 
 ## Hardware
 
-- ESP32-WROOM-32 on a PAT-DAELN v2.1 board [TODO: credit for the board, who developed it]
+- ESP32-WROOM-32 on a PAT-DAELN v2.1 development board, used in a UTFPR microcontrollers course and reused for this project
 - ADS1015 ADC for output voltage feedback
 - SSD1306 OLED display
-- PWM output on GPIO18 through the LC-LM358-PWM2V module [TODO: confirm module description]
+- PWM output on GPIO18 through the LC-LM358-PWM2V module, which converts the PWM signal into an analog voltage
 
 ## Control design
 
-Discretized deadbeat controller with sampling time Ts = 250 ms. Final parameters:
+Discretized deadbeat controller with sampling time Ts = 250 ms, based on the identified plant gain (K) and time constant (tau). Final parameters:
 
 | Parameter | Value |
 |---|---|
@@ -29,19 +29,11 @@ Discretized deadbeat controller with sampling time Ts = 250 ms. Final parameters
 | Error dead zone | 0.02 V |
 | Trim error limit | 0.5 V |
 
-[TODO: confirm K and tau are the identified plant gain and time constant, and describe the trim and bias terms in one sentence each.]
+[TODO from the report: one sentence on what the trim term does and one on the bias term.]
 
 ## Results
 
 [TODO from the report: rise time, settling time, steady-state error (under 2%), step response plot, Bode and Nyquist plots.]
-
-## Engineering notes
-
-Three bugs found and fixed during validation:
-
-- Double rounding in the voltage-to-PWM conversion. Fixed by mapping the voltage directly to an 8-bit duty value, round(v / 10 x 255).
-- Windup of the integral trim. Fixed by gating the trim with an error limit of 0.5 V.
-- False stability detection when the error flips sign around the setpoint. The stable flag now requires consecutive cycles without sign inversion.
 
 ## MATLAB analysis
 
@@ -52,7 +44,6 @@ The analysis package computes the step response, Bode and Nyquist plots and the 
 ```
 firmware/   ESP32 source code
 analysis/   MATLAB scripts and sample data
-docs/       final report (PDF)
 images/     photos and result plots
 ```
 
