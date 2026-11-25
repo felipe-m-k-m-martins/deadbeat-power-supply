@@ -32,12 +32,14 @@ Discretized first-order plant model y[k+1] = a·y[k] + b·u[k], with a = exp(-Ts
 
 Because Ts is much longer than tau, a is close to zero and the deadbeat law reduces to u ≈ r: the deadbeat term sets the output in one step, and the trim term removes what is left.
 
+Once the error stays within 0.025 V for 4 consecutive cycles without changing sign, the controller declares the step settled and holds the command until the next setpoint change.
+
 - **Trim term:** every cycle it adds KI_TRIM times the error to the command, which removes the steady-state error caused by the gain mismatch (plant gain about 1.01 against K = 1). It only integrates when the error is between 0.02 V and 0.5 V, when the command is not saturated and when the error has not changed sign, and it is reset at every setpoint change.
 - **Bias limit:** anti-windup clamp that keeps the accumulated trim within +/- 2 V.
 
 ## Results
 
-Automatic test sequence 0, 1, 0, 2, 0, 3 ... 0, 10 V, 10 s per level, output measured by the ADS1015 at Ts = 250 ms. The recorded log starts after the 1 V step, so the table covers the steps from 0 V to 2 through 10 V.
+Automatic test sequence 0, 1, 0, 2, 0, 3 ... 0, 10 V, 10 s per level, output measured by the ADS1015 (log recorded with the `FonteDigitalPWM_LogVerboso` firmware). The recorded log starts after the 1 V step, so the table covers the steps from 0 V to 2 through 10 V. In the log, consecutive samples are 288 ms apart, a little longer than the nominal 250 ms window, and there are no data rows between the moment each step settles and the next setpoint change.
 
 | Setpoint (V) | Overshoot (%) | Rise time (s) | Settling time (s) | Steady-state error (%) |
 |---|---|---|---|---|
