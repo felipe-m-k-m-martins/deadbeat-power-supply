@@ -91,7 +91,7 @@ Code comments are in Portuguese.
 4. Open the Serial Monitor at 115200 baud. The board runs the 20-step sequence on its own and prints `=== SEQUENCIA AUTOMATICA CONCLUIDA ===` at the end.
 5. Copy the whole output into a `.txt` file.
 
-Serial commands: a number such as `5.0` sets the setpoint, `T=300` sets tau to 300 ms and `STATUS` prints the current parameters.
+Serial commands: a number such as `5.0` sets the setpoint, `T=300` sets tau to 300 ms, `STATUS` prints the current parameters, `RUN` restarts the automatic step sequence (it also starts by itself about 2 s after power-up) and `STOP` interrupts it.
 
 **Analysis**
 1. MATLAB with the Control System Toolbox and the System Identification Toolbox.
