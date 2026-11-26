@@ -100,7 +100,7 @@ Serial commands: a number such as `5.0` sets the setpoint, `T=300` sets tau to 3
 
 ## License
 
-Code released under the [MIT License](LICENSE).
+The firmware and the MATLAB analysis script are released under the [MIT License](LICENSE).
 
 ## Author
 
